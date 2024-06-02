@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.API", "SchoolManagement.API.csproj", "{94AC69D9-69DF-44E5-9C0D-4B44A0D33F66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.API", "SchoolManagement.API.csproj", "{94AC69D9-69DF-44E5-9C0D-4B44A0D33F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Core", "..\SchoolManagement.Core\SchoolManagement.Core.csproj", "{89B4094C-B2C5-4098-8DD7-F3D8CF560722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Core", "..\SchoolManagement.Core\SchoolManagement.Core.csproj", "{89B4094C-B2C5-4098-8DD7-F3D8CF560722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Infrastructure", "..\SchoolManagement.Infrastructure\SchoolManagement.Infrastructure.csproj", "{531F7E88-F2EC-4054-97FE-204868D657AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Application", "..\SchoolManagement.Application\SchoolManagement.Application.csproj", "{7B723140-B692-41A7-B279-69915FFE30CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{89B4094C-B2C5-4098-8DD7-F3D8CF560722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89B4094C-B2C5-4098-8DD7-F3D8CF560722}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89B4094C-B2C5-4098-8DD7-F3D8CF560722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{531F7E88-F2EC-4054-97FE-204868D657AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{531F7E88-F2EC-4054-97FE-204868D657AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{531F7E88-F2EC-4054-97FE-204868D657AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{531F7E88-F2EC-4054-97FE-204868D657AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B723140-B692-41A7-B279-69915FFE30CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B723140-B692-41A7-B279-69915FFE30CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B723140-B692-41A7-B279-69915FFE30CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B723140-B692-41A7-B279-69915FFE30CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

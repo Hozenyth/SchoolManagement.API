@@ -13,11 +13,9 @@ namespace SchoolManagement.Core.Entities
 
         public CourseStatusEnum Status { get; set; }
 
-        public Course(string description, int idStudent, int idTeacher)
+        public Course(string description)
         {
-            
-            IdStudant = idStudent;
-            IdTeacher = idTeacher; 
+                      
             Description = description;           
             CreatedAt = DateTime.Now;
             Status = CourseStatusEnum.Created;

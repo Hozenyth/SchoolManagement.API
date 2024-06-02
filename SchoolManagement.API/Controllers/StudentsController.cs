@@ -1,33 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.API.Models;
-
+using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.Controllers
 {
+   
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
-
+        private readonly IStudentService _studentService;
+        public StudentsController(IStudentService studentService)
+        {
+            _studentService = studentService;
+                
+        }
 
         [HttpGet]
-        public IActionResult Get(string query)
+        public IActionResult GetAll(string query)
         {
-
-            return Ok();
+            var students = _studentService.GetAll(query);
+            return Ok(students);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok();
-        }
-       
         [HttpGet("{registration}")]
-        public IActionResult GetRegistration(int registration)
+        public IActionResult GetById(int registration)
         {
-            return Ok();
+            var student = _studentService.GetByRegistration(registration);
+            if(student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
         }
-
+              
         [HttpPost("CreateStudent", Name = "CreateStudent")]
         public IActionResult CreateStudent([FromBody] CreateStudentsModel createStudent)
         {

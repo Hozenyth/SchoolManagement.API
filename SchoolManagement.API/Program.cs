@@ -1,3 +1,7 @@
+using SchoolManagement.Application.Services.Implementations.Services;
+using SchoolManagement.Application.Services.Interfaces;
+using SchoolManagement.Infrastructure.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<SchoolManagementDbContext>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 var app = builder.Build();
 
