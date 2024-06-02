@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Core.Entities
+﻿using SchoolManagement.Core.Enums;
+
+namespace SchoolManagement.Core.Entities
 {
     public class Teacher : BaseEntity
     {
@@ -8,6 +10,8 @@
         public string PhoneNumber { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public bool IsActive { get; private set; }
+
+        public TeacherStatusEnum Status { get; private set; }
         public List<Course> Courses { get; private set; }
 
         
@@ -22,6 +26,16 @@
             
             Courses = new List<Course>();
                 
+        }
+
+        public void Cancel()
+        {
+            if (IsActive && Status == TeacherStatusEnum.Created)
+            {
+                IsActive = false;
+                Status = TeacherStatusEnum.Cancelled;
+            }
+
         }
     }
 }

@@ -14,9 +14,9 @@ namespace SchoolManagement.Infrastructure.Persistence
         {
             Students = new List<Student>
             {
-                new Student("Hozenyth", "2227738053", 1001,"hozenyth.teste@gmail.com"),
-                new Student("Alexander", "2227715283", 1002,"alex.teste@gmail.com"),
-                new Student("Marina", "2227715283", 1003,"marina.teste@gmail.com")
+                new Student("Hozenyth", "2227738053", 2024001,"hozenyth.teste@gmail.com"),
+                new Student("Alexander", "2227715283", 2024002,"alex.teste@gmail.com"),
+                new Student("Marina", "2227715283", 2024003,"marina.teste@gmail.com")
             };
 
             Teachers = new List<Teacher>

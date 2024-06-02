@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Application.InputModels
+﻿using SchoolManagement.Core.Enums;
+
+namespace SchoolManagement.Application.InputModels
 {
     public class NewStudentInputModel
     {
@@ -6,5 +8,6 @@
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int Registration { get; set; }
+                   
     }
 }

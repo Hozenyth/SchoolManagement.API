@@ -13,7 +13,7 @@ namespace SchoolManagement.Application.Services.Interfaces
 
         void UpdateStudent(UpdateStudentInputModel inputModel);
 
-        void DeleteStudent(int id);
+        void DeleteStudent(int registration);
         
     }
 }

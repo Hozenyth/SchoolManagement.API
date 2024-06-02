@@ -3,7 +3,6 @@ using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
 using SchoolManagement.Infrastructure.Persistence;
-using System.Net;
 
 namespace SchoolManagement.Application.Services.Implementations.Services
 {
@@ -20,15 +19,16 @@ namespace SchoolManagement.Application.Services.Implementations.Services
             var student = new Student(inputModel.Name, inputModel.PhoneNumber, inputModel.Registration, inputModel.Email);
             _dbContext.Students.Add(student);
 
-            return student.Id;
+            return student.Registration;
         }
 
-        public void DeleteStudent(int id)
+        public void DeleteStudent(int registration)
         {
-            var student = _dbContext.Students.SingleOrDefault(s => s.Id == id);
+            var student = _dbContext.Students.SingleOrDefault(s => s.Registration == registration);
 
-            student.Cancel();
-
+            if(student != null)             
+               student.Cancel();
+                       
         }
 
         public void Finish(int Id)

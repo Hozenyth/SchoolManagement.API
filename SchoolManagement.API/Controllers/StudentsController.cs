@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.API.Models;
+using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.Controllers
@@ -33,11 +34,13 @@ namespace SchoolManagement.Controllers
             return Ok(student);
         }
               
-        [HttpPost("CreateStudent", Name = "CreateStudent")]
-        public IActionResult CreateStudent([FromBody] CreateStudentsModel createStudent)
+        [HttpPost]
+        public IActionResult Post([FromBody] NewStudentInputModel inputModel)
         {
 
-            return Ok(createStudent);
+            var registration = _studentService.CreateStudent(inputModel);
+            
+            return CreatedAtAction(nameof(GetById), new { registration = registration }, inputModel);
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]       
@@ -46,10 +49,10 @@ namespace SchoolManagement.Controllers
             return Ok(updateStudent);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{registration}")]
+        public IActionResult Delete(int registration)
         {
-
+            _studentService.DeleteStudent(registration);
             return NoContent();
         }
     }

@@ -8,7 +8,7 @@
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public DateTime Created { get; private set; }
-       
+
 
         public StudentDetaisViewModel(int id, string name, int registration, string phoneNumber, string email, DateTime created)
         {
@@ -18,7 +18,7 @@
             PhoneNumber = phoneNumber;
             Email = email;
             Created = created;
-                         
+
         }
     }
 }
