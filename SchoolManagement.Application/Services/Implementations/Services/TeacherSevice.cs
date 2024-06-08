@@ -40,20 +40,28 @@ namespace SchoolManagement.Application.Services.Implementations.Services
         {
             var teacher = _dbContext.Teachers.SingleOrDefault(p => p.Registration == registration);
 
-            var teacherDetailsViewModel = new TeacherDetailsViewModel(
+            if (teacher != null)
+            {
+                var teacherDetailsViewModel = new TeacherDetailsViewModel(
 
-                teacher.Id,
-                teacher.Name,              
-                teacher.PhoneNumber,
-                teacher.Registration
-            );
+                    teacher.Id,
+                    teacher.Name,
+                    teacher.PhoneNumber,
+                    teacher.Registration
+                );
 
-            return teacherDetailsViewModel;
+                return teacherDetailsViewModel;
+            }
+
+            return null;
+           
         }
 
-        public void UpdateTecaher(UpdateTeacherInputModel inputModel)
+        public void UpdateTeacher(UpdateTeacherInputModel inputModel, int registration)
         {
-            var teacher = _dbContext.Teachers.Select(p => new UpdateStudentInputModel(p.Name, p.Email, p.PhoneNumber));
+            var teacher = _dbContext.Teachers.SingleOrDefault(p => p.Registration == registration);
+            if(teacher != null)
+            teacher.Update(teacher.Name, teacher.Email, teacher.PhoneNumber);
         }
     }
 }

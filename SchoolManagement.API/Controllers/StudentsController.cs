@@ -44,9 +44,14 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]       
-        public IActionResult UpdateStudent([FromForm] UpdateStudentModel updateStudent) 
-        { 
-            return Ok(updateStudent);
+        public IActionResult UpdateStudent([FromBody] UpdateStudentInputModel inputModel, int registration) 
+        {
+            if (string.IsNullOrEmpty(inputModel.Name))            
+               return BadRequest();
+            
+            _studentService.UpdateStudent(inputModel, registration);
+
+            return NoContent();
         }
 
         [HttpDelete("{registration}")]

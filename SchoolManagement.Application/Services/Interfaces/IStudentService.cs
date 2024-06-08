@@ -11,7 +11,7 @@ namespace SchoolManagement.Application.Services.Interfaces
 
         int CreateStudent(NewStudentInputModel inputModel);
 
-        void UpdateStudent(UpdateStudentInputModel inputModel);
+        void UpdateStudent(UpdateStudentInputModel inputModel, int registration);
 
         void DeleteStudent(int registration);
         

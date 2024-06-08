@@ -65,16 +65,13 @@ namespace SchoolManagement.Application.Services.Implementations.Services
             
         }
        
-        public void UpdateStudent(UpdateStudentInputModel inputModel)
+        public void UpdateStudent(UpdateStudentInputModel inputModel, int registration)
         {
-            var student = _dbContext.Students.SingleOrDefault(p => p.Id == inputModel.Id);
+            var student = _dbContext.Students.SingleOrDefault(p => p.Registration == registration);
 
-            if(student != null)
-            {
-                student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
-
-            }
-
+            if(student != null)           
+               student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
+            
         }
     }
 }

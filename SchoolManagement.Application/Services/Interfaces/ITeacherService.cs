@@ -11,7 +11,7 @@ namespace SchoolManagement.Application.Services.Interfaces
 
         int CreateNewTeacher(NewTeacherInputModel inputmodel);
 
-        void UpdateTecaher( UpdateTeacherInputModel inputModel);
+        void UpdateTeacher( UpdateTeacherInputModel inputModel, int registration);
 
         void DeleteTeacher( int registration);
 

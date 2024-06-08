@@ -10,24 +10,24 @@ namespace SchoolManagement.API.Controllers
     [Route("api/Teachers")]
     public class TeachersController : ControllerBase
     {
-        private readonly ITeacherService _service;
+        private readonly ITeacherService _teacherService;
         public TeachersController(ITeacherService teacherService) 
-        { 
-            _service = teacherService;
+        {
+            _teacherService = teacherService;
         }
 
         [HttpGet]
         public IActionResult GetAll(string query)
         {
-            var teachers = _service.GetAllTeachers();
+            var teachers = _teacherService.GetAllTeachers();
             
             return Ok(teachers);
         }
 
         [HttpGet("{registration}")]
-        public IActionResult GetTeacherDetais(int registration)
+        public IActionResult GetTeacher(int registration)
         {
-            var teacher = _service.GetTeacherDetails(registration);
+            var teacher = _teacherService.GetTeacherDetails(registration);
             
             return Ok(teacher);
         }
@@ -36,23 +36,27 @@ namespace SchoolManagement.API.Controllers
         [HttpPost("CreateTeacher", Name = "CreateTeacher")]
         public IActionResult Post([FromBody] NewTeacherInputModel inputModel) 
         {
-            var id = _service.CreateNewTeacher(inputModel);
+            var id = _teacherService.CreateNewTeacher(inputModel);
 
-            return CreatedAtAction(nameof(GetTeacherDetais), new { id = id }, inputModel);
+            return CreatedAtAction(nameof(GetTeacher), new { id = id }, inputModel);
         }
 
         [HttpDelete]
         public IActionResult DeleteRegistration(int registration) 
         {
-           _service.DeleteTeacher(registration);
+            _teacherService.DeleteTeacher(registration);
            
             return NoContent();
         }
 
-        [HttpPut]
-        public IActionResult PutRegistration(int registration) 
-        { 
-            return Ok();
+        [HttpPut("UpdateTeacher", Name = "Updateteacher")]
+        public IActionResult Put([FromBody] UpdateTeacherInputModel inputModel, int registration) 
+        {
+            if(inputModel.Name == null )          
+              return BadRequest();
+            
+            _teacherService.UpdateTeacher(inputModel, registration);
+            return NoContent();
         }
 
     }

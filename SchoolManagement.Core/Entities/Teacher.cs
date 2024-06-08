@@ -37,5 +37,12 @@ namespace SchoolManagement.Core.Entities
             }
 
         }
+
+        public void Update(string name, string email, string phoneNumber)
+        {
+            Name = name;
+            Email = email;
+            PhoneNumber= phoneNumber;           
+        }
     }
 }
