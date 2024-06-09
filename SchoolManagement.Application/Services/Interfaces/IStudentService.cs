@@ -7,7 +7,7 @@ namespace SchoolManagement.Application.Services.Interfaces
     {
         List<StudentViewModel> GetAll(string query);
 
-        StudentDetaisViewModel GetByRegistration(int registration);
+        StudentDetailsViewModel GetByRegistration(int registration);
 
         int CreateStudent(NewStudentInputModel inputModel);
 

@@ -1,4 +1,4 @@
-using SchoolManagement.Application.Services.Implementations.Services;
+using SchoolManagement.Application.Services.Implementations;
 using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Infrastructure.Persistence;
 
@@ -12,7 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<SchoolManagementDbContext>();
 builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ITeacherService, TeacherSevice>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 var app = builder.Build();
 

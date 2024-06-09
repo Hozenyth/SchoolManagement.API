@@ -4,12 +4,12 @@ using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
 using SchoolManagement.Infrastructure.Persistence;
 
-namespace SchoolManagement.Application.Services.Implementations.Services
+namespace SchoolManagement.Application.Services.Implementations
 {
-    public class TeacherSevice : ITeacherService
+    public class TeacherService : ITeacherService
     {
         private readonly SchoolManagementDbContext _dbContext;
-        public TeacherSevice(SchoolManagementDbContext dbContext)
+        public TeacherService(SchoolManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,16 +22,16 @@ namespace SchoolManagement.Application.Services.Implementations.Services
 
         public void DeleteTeacher(int registration)
         {
-            var teacher = _dbContext.Teachers.SingleOrDefault( p=> p.Registration == registration);
-            if (teacher != null)           
+            var teacher = _dbContext.Teachers.SingleOrDefault(p => p.Registration == registration);
+            if (teacher != null)
                 teacher.Cancel();
-                                     
+
         }
 
         public List<TeacherViewModel> GetAllTeachers()
         {
-            var  teachers = _dbContext.Teachers;
-            var teachersViewModel = teachers.Select( p => new TeacherViewModel(p.Id, p.Name, p.Email, p.PhoneNumber, p.Registration)).ToList();
+            var teachers = _dbContext.Teachers;
+            var teachersViewModel = teachers.Select(p => new TeacherViewModel(p.Id, p.Name, p.Email, p.PhoneNumber, p.Registration)).ToList();
 
             return teachersViewModel;
         }
@@ -54,14 +54,14 @@ namespace SchoolManagement.Application.Services.Implementations.Services
             }
 
             return null;
-           
+
         }
 
         public void UpdateTeacher(UpdateTeacherInputModel inputModel, int registration)
         {
             var teacher = _dbContext.Teachers.SingleOrDefault(p => p.Registration == registration);
-            if(teacher != null)
-            teacher.Update(teacher.Name, teacher.Email, teacher.PhoneNumber);
+            if (teacher != null)
+                teacher.Update(teacher.Name, teacher.Email, teacher.PhoneNumber);
         }
     }
 }

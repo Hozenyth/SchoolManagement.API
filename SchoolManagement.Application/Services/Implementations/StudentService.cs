@@ -4,7 +4,7 @@ using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
 using SchoolManagement.Infrastructure.Persistence;
 
-namespace SchoolManagement.Application.Services.Implementations.Services
+namespace SchoolManagement.Application.Services.Implementations
 {
     public class StudentService : IStudentService
     {
@@ -26,9 +26,9 @@ namespace SchoolManagement.Application.Services.Implementations.Services
         {
             var student = _dbContext.Students.SingleOrDefault(s => s.Registration == registration);
 
-            if(student != null)             
-               student.Cancel();
-                       
+            if (student != null)
+                student.Cancel();
+
         }
 
         public void Finish(int Id)
@@ -45,12 +45,12 @@ namespace SchoolManagement.Application.Services.Implementations.Services
             return studentViewModel;
         }
 
-        public StudentDetaisViewModel GetByRegistration(int registration)
+        public StudentDetailsViewModel GetByRegistration(int registration)
         {
-            var student = _dbContext.Students.SingleOrDefault( p=> p.Registration == registration);
+            var student = _dbContext.Students.SingleOrDefault(p => p.Registration == registration);
             if (student != null)
             {
-                var studentDetailViewModel = new StudentDetaisViewModel(
+                var studentDetailViewModel = new StudentDetailsViewModel(
               student.Id,
               student.Name,
               student.Registration,
@@ -62,16 +62,16 @@ namespace SchoolManagement.Application.Services.Implementations.Services
             }
             else
                 return null;
-            
+
         }
-       
+
         public void UpdateStudent(UpdateStudentInputModel inputModel, int registration)
         {
             var student = _dbContext.Students.SingleOrDefault(p => p.Registration == registration);
 
-            if(student != null)           
-               student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
-            
+            if (student != null)
+                student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
+
         }
     }
 }

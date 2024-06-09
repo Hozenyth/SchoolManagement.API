@@ -27,10 +27,10 @@ namespace SchoolManagement.Infrastructure.Persistence
 
             Courses = new List<Course>
             {
-                new Course("Javascript"),
-                new Course("Program Logic"),
-                new Course("Power BI"),
-                new Course("Excell")
+                new Course("Javascript", "how to learning basics steps with javascript"),
+                new Course("Program Logic", "basic programming principles"),
+                new Course("Power BI", "Learn step by step to create dashboards and dynamic reports using business intelligence"),
+                new Course("Excell","Learn to work with Excel from the beginning")
             };
         }
     }

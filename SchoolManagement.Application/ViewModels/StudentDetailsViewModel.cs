@@ -1,6 +1,6 @@
 ﻿namespace SchoolManagement.Application.ViewModels
 {
-    public class StudentDetaisViewModel
+    public class StudentDetailsViewModel
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
@@ -10,7 +10,7 @@
         public DateTime Created { get; private set; }
 
 
-        public StudentDetaisViewModel(int id, string name, int registration, string phoneNumber, string email, DateTime created)
+        public StudentDetailsViewModel(int id, string name, int registration, string phoneNumber, string email, DateTime created)
         {
             Id = id;
             Name = name;
