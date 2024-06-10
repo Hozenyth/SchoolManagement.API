@@ -33,9 +33,9 @@ namespace SchoolManagement.API.Controllers
         [HttpPost("CreateTeacher", Name = "CreateTeacher")]
         public IActionResult Post([FromBody] NewTeacherInputModel inputModel) 
         {
-            var id = _teacherService.CreateNewTeacher(inputModel);
+            var registration = _teacherService.CreateNewTeacher(inputModel);
 
-            return CreatedAtAction(nameof(GetTeacher), new { id = id }, inputModel);
+            return CreatedAtAction(nameof(GetTeacher), new { registration = registration }, inputModel);
         }
 
         [HttpDelete]

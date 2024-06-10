@@ -17,14 +17,15 @@ namespace SchoolManagement.Core.Entities
         public Student( string name, string phoneNumber, int registration, string email) 
         {
             Name = name;
-            PhoneNumber = phoneNumber;
+            PhoneNumber = phoneNumber;            
             Registration = registration;
             Email = email;
             CreatedAt = DateTime.Now;
             IsActive = true;
             StudentStatus = StudentStatusEnum.Created;
-
             Courses = new List<Course>();
+
+         
         }
 
         public void Cancel()
@@ -41,6 +42,17 @@ namespace SchoolManagement.Core.Entities
             Name = name;
             Email = email;
             PhoneNumber = phoneNumber;
+        }
+
+        public int GenerateRegistration(int registration)
+        {
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+            
+            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
+            
+            return currentRegistration;
+
         }
     }
 }

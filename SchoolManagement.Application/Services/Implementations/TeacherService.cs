@@ -15,9 +15,11 @@ namespace SchoolManagement.Application.Services.Implementations
         }
         public int CreateNewTeacher(NewTeacherInputModel inputModel)
         {
-            var teacher = new Teacher(inputModel.Name, inputModel.Email, inputModel.Registration, inputModel.PhoneNumber);
+            var newRegistration = GenerateTeacherRegistration(inputModel.Registration);
+            var teacher = new Teacher(inputModel.Name, inputModel.Email, newRegistration, inputModel.PhoneNumber);
             _dbContext.Teachers.Add(teacher);
-            return teacher.Id;
+
+            return teacher.Registration;
         }
 
         public void DeleteTeacher(int registration)
@@ -62,6 +64,17 @@ namespace SchoolManagement.Application.Services.Implementations
             var teacher = _dbContext.Teachers.SingleOrDefault(p => p.Registration == registration);
             if (teacher != null)
                 teacher.Update(teacher.Name, teacher.Email, teacher.PhoneNumber);
+        }
+
+        public int GenerateTeacherRegistration(int registration)
+        {
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+
+            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
+
+            return currentRegistration;
+
         }
     }
 }

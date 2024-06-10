@@ -15,8 +15,9 @@ namespace SchoolManagement.Application.Services.Implementations
             _dbContext = dbContext;
         }
         public int CreateStudent(NewStudentInputModel inputModel)
-        {
-            var student = new Student(inputModel.Name, inputModel.PhoneNumber, inputModel.Registration, inputModel.Email);
+        {          
+            var newRegistration = GenerateStudentRegistration(inputModel.Registration);
+            var student = new Student(inputModel.Name, inputModel.PhoneNumber, newRegistration, inputModel.Email);          
             _dbContext.Students.Add(student);
 
             return student.Registration;
@@ -71,6 +72,17 @@ namespace SchoolManagement.Application.Services.Implementations
 
             if (student != null)
                 student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
+
+        }
+
+        public int GenerateStudentRegistration(int registration)
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
+
+            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
+
+            return currentRegistration;
 
         }
     }
