@@ -2,7 +2,7 @@
 using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
-using SchoolManagement.Infrastructure.Persistence;
+using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Services.Implementations
 {
@@ -19,6 +19,7 @@ namespace SchoolManagement.Application.Services.Implementations
             var newRegistration = GenerateStudentRegistration(inputModel.Registration);
             var student = new Student(inputModel.Name, inputModel.PhoneNumber, newRegistration, inputModel.Email);          
             _dbContext.Students.Add(student);
+            _dbContext.SaveChanges();
 
             return student.Registration;
         }
@@ -30,18 +31,15 @@ namespace SchoolManagement.Application.Services.Implementations
             if (student != null)
                 student.Cancel();
 
-        }
+            _dbContext.SaveChanges();
 
-        public void Finish(int Id)
-        {
-            throw new NotImplementedException();
         }
-
+      
         public List<StudentViewModel> GetAll(string query)
         {
             var students = _dbContext.Students;
 
-            var studentViewModel = students.Select(p => new StudentViewModel(p.Id, p.Name, p.Registration)).ToList();
+            var studentViewModel = students.Select(p => new StudentViewModel(p.Id, p.Name, p.Registration, p.Email)).ToList();
 
             return studentViewModel;
         }
@@ -72,7 +70,8 @@ namespace SchoolManagement.Application.Services.Implementations
 
             if (student != null)
                 student.Update(inputModel.Name, inputModel.Email, inputModel.PhoneNumber);
-
+            
+            _dbContext.SaveChanges();
         }
 
         public int GenerateStudentRegistration(int registration)

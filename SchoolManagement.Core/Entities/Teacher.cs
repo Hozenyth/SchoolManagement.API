@@ -10,11 +10,9 @@ namespace SchoolManagement.Core.Entities
         public string PhoneNumber { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public bool IsActive { get; private set; }
-
         public TeacherStatusEnum Status { get; private set; }
         public List<Course> Courses { get; private set; }
-
-        
+              
         public Teacher( string name, string email, int registration, string phoneNumber)
         {
             Name = name;
@@ -22,10 +20,7 @@ namespace SchoolManagement.Core.Entities
             Registration = registration;
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.Now;
-            IsActive = true;
-            
-            Courses = new List<Course>();
-                
+            IsActive = true;                                   
         }
 
         public void Cancel()
@@ -35,7 +30,6 @@ namespace SchoolManagement.Core.Entities
                 IsActive = false;
                 Status = TeacherStatusEnum.Cancelled;
             }
-
         }
 
         public void Update(string name, string email, string phoneNumber)

@@ -2,7 +2,7 @@
 using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
-using SchoolManagement.Infrastructure.Persistence;
+using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Services.Implementations
 {
@@ -19,7 +19,8 @@ namespace SchoolManagement.Application.Services.Implementations
             var createCourse = new Course(inputModel.Title, inputModel.Description);
 
             _dbContext.Courses.Add(createCourse);
-            
+            _dbContext.SaveChanges();
+
             return createCourse.Id;
         }
 
@@ -29,6 +30,8 @@ namespace SchoolManagement.Application.Services.Implementations
 
             if(course != null) 
                course.Cancel();
+           
+            _dbContext.SaveChanges();
         }
 
         public List<CourseViewModel> GetAll(string query)
@@ -65,6 +68,8 @@ namespace SchoolManagement.Application.Services.Implementations
             var course = _dbContext.Courses.SingleOrDefault(c => c.Id == inputModel.Id);
             if(course != null)
                course.Update(inputModel.Title, inputModel.Description);
+            
+            _dbContext.SaveChanges();
         }
     }
 }

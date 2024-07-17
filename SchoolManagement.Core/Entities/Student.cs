@@ -9,9 +9,7 @@ namespace SchoolManagement.Core.Entities
         public int Registration { get; private set; }
         public string Email { get; private set; }
         public bool IsActive { get; private set; }
-        public DateTime CreatedAt { get; private set; }       
-        public List<Course> Courses { get; private set; }
-
+        public DateTime CreatedAt { get; private set; }              
         public StudentStatusEnum StudentStatus { get; private set; }
 
         public Student( string name, string phoneNumber, int registration, string email) 
@@ -23,9 +21,7 @@ namespace SchoolManagement.Core.Entities
             CreatedAt = DateTime.Now;
             IsActive = true;
             StudentStatus = StudentStatusEnum.Created;
-            Courses = new List<Course>();
-
-         
+                   
         }
 
         public void Cancel()
@@ -43,16 +39,6 @@ namespace SchoolManagement.Core.Entities
             Email = email;
             PhoneNumber = phoneNumber;
         }
-
-        public int GenerateRegistration(int registration)
-        {
-            int currentYear = DateTime.Now.Year;
-            int currentMonth = DateTime.Now.Month;
-            
-            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
-            
-            return currentRegistration;
-
-        }
+       
     }
 }

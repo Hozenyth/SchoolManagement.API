@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Application.Services.Implementations;
 using SchoolManagement.Application.Services.Interfaces;
-using SchoolManagement.Infrastructure.Persistence;
+using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<SchoolManagementDbContext>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 
+var connectionString = builder.Configuration.GetConnectionString("SchoolManagementCs");
+builder.Services.AddDbContext<SchoolManagementDbContext>(x => x.UseSqlServer(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

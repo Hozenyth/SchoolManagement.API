@@ -4,13 +4,15 @@
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
+        public string Email { get; private set; }
         public int Registration { get; private set; }
 
-        public StudentViewModel(int id, string name, int registrationn)
+        public StudentViewModel(int id, string name, int registration, string email)
         {
             Id = id;
             Name = name;
-            Registration = registrationn;
+            Email = email;
+            Registration = registration;
         }
     }
 }
