@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SchoolManagement.Infrastructure.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,8 +36,7 @@ namespace SchoolManagement.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdTeacher = table.Column<int>(type: "int", nullable: false),
-                    IdStudent = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: true),
                     StartedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -47,8 +46,8 @@ namespace SchoolManagement.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Teachers_IdTeacher",
-                        column: x => x.IdTeacher,
+                        name: "FK_Courses_Teachers_TeacherId",
+                        column: x => x.TeacherId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -79,10 +78,51 @@ namespace SchoolManagement.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Course_Students",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Course_Students", x => new { x.StudentId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_Course_Students_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Course_Students_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Course_Students_Teachers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_IdTeacher",
+                name: "IX_Course_Students_CourseId",
+                table: "Course_Students",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Course_Students_TeacherId",
+                table: "Course_Students",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TeacherId",
                 table: "Courses",
-                column: "IdTeacher");
+                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_CourseId",
@@ -92,6 +132,9 @@ namespace SchoolManagement.Infrastructure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Course_Students");
+
             migrationBuilder.DropTable(
                 name: "Students");
 

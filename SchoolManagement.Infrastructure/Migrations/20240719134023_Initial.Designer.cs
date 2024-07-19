@@ -12,8 +12,8 @@ using SchoolManagement.Infrastructure.Persistence.Repositories;
 namespace SchoolManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(SchoolManagementDbContext))]
-    [Migration("20240716133255_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240719134023_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,16 +42,14 @@ namespace SchoolManagement.Infrastructure.Migrations
                     b.Property<DateTime>("FinishedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdStudent")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTeacher")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -60,9 +58,32 @@ namespace SchoolManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdTeacher");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Core.Entities.Course_Student", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Course_Students");
                 });
 
             modelBuilder.Entity("SchoolManagement.Core.Entities.Student", b =>
@@ -148,11 +169,34 @@ namespace SchoolManagement.Infrastructure.Migrations
                 {
                     b.HasOne("SchoolManagement.Core.Entities.Teacher", "Teacher")
                         .WithMany("Courses")
-                        .HasForeignKey("IdTeacher")
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Core.Entities.Course_Student", b =>
+                {
+                    b.HasOne("SchoolManagement.Core.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Core.Entities.Student", "Student")
+                        .WithMany("Course_Students")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Core.Entities.Teacher", null)
+                        .WithMany("Course_Students")
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SchoolManagement.Core.Entities.Student", b =>
@@ -167,8 +211,15 @@ namespace SchoolManagement.Infrastructure.Migrations
                     b.Navigation("Students");
                 });
 
+            modelBuilder.Entity("SchoolManagement.Core.Entities.Student", b =>
+                {
+                    b.Navigation("Course_Students");
+                });
+
             modelBuilder.Entity("SchoolManagement.Core.Entities.Teacher", b =>
                 {
+                    b.Navigation("Course_Students");
+
                     b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618

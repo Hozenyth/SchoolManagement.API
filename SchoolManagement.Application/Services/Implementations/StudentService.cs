@@ -73,7 +73,7 @@ namespace SchoolManagement.Application.Services.Implementations
             
             _dbContext.SaveChanges();
         }
-
+    
         public int GenerateStudentRegistration(int registration)
         {
             var currentYear = DateTime.Now.Year;

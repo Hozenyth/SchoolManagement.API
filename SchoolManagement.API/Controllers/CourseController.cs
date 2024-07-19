@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.InputModels;
-using SchoolManagement.Application.Services.Implementations;
 using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.API.Controllers
@@ -35,7 +34,8 @@ namespace SchoolManagement.API.Controllers
         public IActionResult Post([FromBody] NewCourseInputModel inputModel)
         {
             var course = _courseService.CreateCourse(inputModel);
-            return Ok(course);
+
+            return CreatedAtAction(nameof(GetById), new { id = course }, inputModel);
         }
 
         [HttpPut("UpdateCourse", Name = "UpdateCourse")]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.API.Models;
 using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Services.Interfaces;
@@ -35,12 +36,18 @@ namespace SchoolManagement.Controllers
         }
               
         [HttpPost]
-        public IActionResult Post([FromBody] NewStudentInputModel inputModel)
+        public IActionResult Post([FromBody] NewStudentInputModel inputModel, [FromServices] IValidator<NewStudentInputModel> validator)
         {
+            var result = validator.Validate(inputModel);
+            var error = result.Errors.Select(e => e.ErrorMessage);
 
-            var registration = _studentService.CreateStudent(inputModel);
-            
-            return CreatedAtAction(nameof(GetById), new { registration = registration }, inputModel);
+            if (!result.IsValid)
+                return BadRequest(error);
+            else
+            {
+                var registration = _studentService.CreateStudent(inputModel);
+                return CreatedAtAction(nameof(GetById), new { registration = registration }, inputModel);
+            }                     
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]       

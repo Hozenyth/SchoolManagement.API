@@ -11,8 +11,9 @@ namespace SchoolManagement.Core.Entities
         public DateTime CreatedAt { get; private set; }
         public bool IsActive { get; private set; }
         public TeacherStatusEnum Status { get; private set; }
-        public List<Course> Courses { get; private set; }
-              
+        public List<Course> Courses { get; private set; }      
+        public List<Course_Student> Course_Students { get; private set; }      
+             
         public Teacher( string name, string email, int registration, string phoneNumber)
         {
             Name = name;

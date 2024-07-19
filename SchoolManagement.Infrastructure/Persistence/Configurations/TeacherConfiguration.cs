@@ -12,7 +12,6 @@ namespace SchoolManagement.Infrastructure.Persistence.Configurations
             builder
                 .HasKey(t => t.Id);
 
-
         }
     }
 }

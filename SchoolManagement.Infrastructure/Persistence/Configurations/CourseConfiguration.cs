@@ -15,7 +15,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Configurations
             builder
                   .HasOne(c => c.Teacher)
                   .WithMany(c => c.Courses)                 
-                  .HasForeignKey(c => c.IdTeacher)
+                  .HasForeignKey(c => c.TeacherId)
                   .OnDelete(DeleteBehavior.Restrict);           
         }
     }
