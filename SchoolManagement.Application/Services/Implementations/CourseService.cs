@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Application.InputModels;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Entities;
@@ -45,17 +46,20 @@ namespace SchoolManagement.Application.Services.Implementations
 
         public CourseDetailsViewModel GetCourse(int id)
         {
-            var course = _dbContext.Courses.SingleOrDefault(c => c.Id == id);
+            var course = _dbContext.Courses
+                .Include(c => c.Teacher)
+                .SingleOrDefault(c => c.Id == id);
 
             if (course != null)
             {
                 var courseDetailsViewModel = new CourseDetailsViewModel(
                     course.Id,
                     course.Title,
-                    course.Description,                   
+                    course.Description,
                     course.CreatedAt,
                     course.StartedAt,
-                    course.FinishedAt
+                    course.FinishedAt,
+                    course.Teacher.Name
                     );
 
                 return courseDetailsViewModel;
@@ -70,6 +74,17 @@ namespace SchoolManagement.Application.Services.Implementations
                course.Update(inputModel.Title, inputModel.Description);
             
             _dbContext.SaveChanges();
+        }
+
+        public void UpdateTeacherCourse(UpdateTeacherCourse inputModel)
+        {
+           
+            var course = _dbContext.Courses.SingleOrDefault(c => c.Id == inputModel.Id);
+            if (course != null)
+            {
+                course.UpdateTeacherCourse(inputModel.TeacherId);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

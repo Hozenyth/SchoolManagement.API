@@ -46,5 +46,10 @@ namespace SchoolManagement.Core.Entities
             Title = title;
             Description = description;
         }
+        public void UpdateTeacherCourse(int? teacherId)
+        {
+            TeacherId = teacherId;
+            
+        }
     }
 }

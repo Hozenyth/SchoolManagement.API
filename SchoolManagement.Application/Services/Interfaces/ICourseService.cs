@@ -10,7 +10,8 @@ namespace SchoolManagement.Application.Services.Interfaces
 
         int CreateCourse(NewCourseInputModel inputModel);
 
-        void UpdateCourse(UpdateCourseInputModel inputModel);
+        void UpdateCourse(UpdateCourseInputModel inputModel);       
         void DeleteCourse(int id);
+        void UpdateTeacherCourse(UpdateTeacherCourse inputModel);
     }
 }

@@ -54,5 +54,12 @@ namespace SchoolManagement.API.Controllers
             _courseService.DeleteCourse(id);
             return NoContent();
         }
+
+        [HttpPut("UpdateTeacherCourse", Name = "UpdateTeacherCourse")]
+        public IActionResult Put([FromBody] UpdateTeacherCourse inputModel)
+        {          
+            _courseService.UpdateTeacherCourse(inputModel);
+            return Ok();
+        }
     }
 }
