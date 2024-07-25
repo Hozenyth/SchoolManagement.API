@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Application.Comands.CreateCourse;
 using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Services.Interfaces;
 
@@ -8,10 +10,11 @@ namespace SchoolManagement.API.Controllers
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
-        public CourseController(ICourseService courseService)
+        private readonly IMediator _mediator;
+        public CourseController(ICourseService courseService, IMediator mediator)
         {
             _courseService = courseService;
-            
+            _mediator = mediator;
         }
 
         [HttpGet("GetAllCourses", Name = "GetAllCourse")]
@@ -31,11 +34,12 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpPost("CreateCourse", Name = "CreateCourse")]
-        public IActionResult Post([FromBody] NewCourseInputModel inputModel)
+        public async Task<IActionResult> Post([FromBody] CreateCourseCommand command)
         {
-            var course = _courseService.CreateCourse(inputModel);
+            
+            var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id = course }, inputModel);
+            return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
         [HttpPut("UpdateCourse", Name = "UpdateCourse")]

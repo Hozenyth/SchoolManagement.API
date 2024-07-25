@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Application.Comands.CreateTeacher;
 using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Services.Interfaces;
 
@@ -8,9 +10,11 @@ namespace SchoolManagement.API.Controllers
     public class TeachersController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
-        public TeachersController(ITeacherService teacherService) 
+        private readonly IMediator _mediator;
+        public TeachersController(ITeacherService teacherService, IMediator mediator) 
         {
             _teacherService = teacherService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -31,11 +35,10 @@ namespace SchoolManagement.API.Controllers
       
 
         [HttpPost("CreateTeacher", Name = "CreateTeacher")]
-        public IActionResult Post([FromBody] NewTeacherInputModel inputModel) 
-        {
-            var registration = _teacherService.CreateNewTeacher(inputModel);
-
-            return CreatedAtAction(nameof(GetTeacher), new { registration = registration }, inputModel);
+        public IActionResult Post([FromBody] CreateTeacherCommand command) 
+        {           
+            var id = _mediator.Send(command);
+            return CreatedAtAction(nameof(GetTeacher), new { registration = id }, command);
         }
 
         [HttpDelete]

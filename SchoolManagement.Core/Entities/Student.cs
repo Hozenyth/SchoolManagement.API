@@ -22,7 +22,7 @@ namespace SchoolManagement.Core.Entities
             CreatedAt = DateTime.Now;
             IsActive = true;
             StudentStatus = StudentStatusEnum.Created;
-                   
+                             
         }
 
         public void Cancel()
@@ -39,7 +39,17 @@ namespace SchoolManagement.Core.Entities
             Name = name;
             Email = email;
             PhoneNumber = phoneNumber;           
-        }      
+        }
+
+        public int GenerateStudentRegistration(int registration)
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
+
+            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
+
+            return currentRegistration;
+        }
 
     }
 }

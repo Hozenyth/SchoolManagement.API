@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.InputModels;
 
 namespace SchoolManagement.API.Validators
 {
-    public class CreateStudentValidator : AbstractValidator<NewStudentInputModel>
+    public class CreateStudentValidator : AbstractValidator<CreateStudentCommand>
     {
         public CreateStudentValidator() 
         {
