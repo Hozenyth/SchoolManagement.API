@@ -2,10 +2,11 @@
 
 namespace SchoolManagement.Application.Comands.UpdateCourse
 {
-    public class UpdateCourseComand : IRequest<Unit>
+    public class UpdateCourseCommand : IRequest<Unit>
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+       
     }
 }

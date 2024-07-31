@@ -76,7 +76,7 @@ namespace SchoolManagement.Application.Services.Implementations
             _dbContext.SaveChanges();
         }
 
-        public void UpdateTeacherCourse(UpdateTeacherCourse inputModel)
+        public void UpdateTeacherCourse(UpdateTeacherCourseInputModel inputModel)
         {
            
             var course = _dbContext.Courses.SingleOrDefault(c => c.Id == inputModel.Id);
