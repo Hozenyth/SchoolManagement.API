@@ -1,7 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateCourse;
+using SchoolManagement.Application.Comands.DeleteCourse;
+using SchoolManagement.Application.Comands.UpdateCourse;
 using SchoolManagement.Application.InputModels;
+using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.API.Controllers
@@ -18,9 +21,10 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpGet("GetAllCourses", Name = "GetAllCourse")]
-        public IActionResult GetAll(string query) 
+        public async Task<IActionResult> GetAll(string query) 
         {
-            var courses = _courseService.GetAll(query);
+            var getAllCoursesQuery = new GetAllCoursesQuery(query);
+            var courses = await _mediator.Send(getAllCoursesQuery);
 
             return Ok(courses);
 
@@ -43,19 +47,22 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpPut("UpdateCourse", Name = "UpdateCourse")]
-        public IActionResult Put([FromBody] UpdateCourseInputModel inputModel)
+        public async Task<IActionResult> Put([FromBody] UpdateCourseComand command, int id)
         {
-            if (string.IsNullOrEmpty(inputModel.Title))
+            if (string.IsNullOrEmpty(command.Title))
                 return BadRequest();
-           
-            _courseService.UpdateCourse(inputModel);
-            return Ok();
+            else
+            {
+              await  _mediator.Send(command);
+                return Ok();
+            }                    
         }
 
         [HttpDelete("DeleteCourse", Name = "DeleteCourse")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _courseService.DeleteCourse(id);
+            var command = new DeleteCourseCommand(id);
+            await _mediator.Send(command);           
             return NoContent();
         }
 

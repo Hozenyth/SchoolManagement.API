@@ -25,8 +25,8 @@ namespace SchoolManagement.Core.Entities
 
         public void Cancel() 
         {
-            if (Status == CourseStatusEnum.InProgress)
-                Status = CourseStatusEnum.Cancelled;
+          
+           Status = CourseStatusEnum.Cancelled;
         }
 
         public void Start()

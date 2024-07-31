@@ -1,14 +1,11 @@
-using FluentValidation.AspNetCore;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Application.Services.Implementations;
 using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Infrastructure.Persistence.Repositories;
-using SchoolManagement.Application.InputModels;
-using SchoolManagement.API.Validators;
 using SchoolManagement.Application.Comands.CreateCourse;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Comands.CreateTeacher;
+using SchoolManagement.Application.Queries.GetStudentById;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateCourseCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateStudentCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateTeacherCommand).Assembly));
+builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStudentByIdQuery).Assembly));
 
 
 builder.Services.AddScoped<IStudentService, StudentService>();

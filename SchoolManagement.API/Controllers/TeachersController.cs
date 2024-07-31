@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateTeacher;
 using SchoolManagement.Application.InputModels;
+using SchoolManagement.Application.Queries.GetAllCourses;
+using SchoolManagement.Application.Queries.GetAllTeachers;
 using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.API.Controllers
@@ -18,10 +20,11 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public async Task<IActionResult> GetAll(string query)
         {
-            var teachers = _teacherService.GetAllTeachers();
-            
+            var getAllTeachersQuery = new GetAllTeachersQuery(query);
+            var teachers = await _mediator.Send(getAllTeachersQuery);
+           
             return Ok(teachers);
         }
 

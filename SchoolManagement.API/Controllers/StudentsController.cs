@@ -1,9 +1,10 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SchoolManagement.API.Models;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.InputModels;
+using SchoolManagement.Application.Queries.GetAllCourses;
+using SchoolManagement.Application.Queries.GetAllStudents;
+using SchoolManagement.Application.Queries.GetStudentById;
 using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.Controllers
@@ -21,16 +22,18 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(string query)
-        {
-            var students = _studentService.GetAll(query);
+        public async Task<IActionResult> GetAll(string query)
+        {           
+            var getAllStudentsQuery = new GetAllStudentsQuery(query);
+            var students = await _mediator.Send(getAllStudentsQuery);
             return Ok(students);
         }
 
         [HttpGet("{registration}")]
-        public IActionResult GetById(int registration)
+        public async Task<IActionResult> GetById(int registration)
         {
-            var student = _studentService.GetByRegistration(registration);
+            var getStudentById = new GetStudentByIdQuery(registration);
+            var student = await _mediator.Send(getStudentById);
             if (student == null)
             {
                 return NotFound();
