@@ -40,16 +40,6 @@ namespace SchoolManagement.Core.Entities
             Email = email;
             PhoneNumber = phoneNumber;           
         }
-
-        public int GenerateStudentRegistration(int registration)
-        {
-            var currentYear = DateTime.Now.Year;
-            var currentMonth = DateTime.Now.Month;
-
-            var currentRegistration = int.Parse(currentYear.ToString() + currentMonth.ToString() + registration.ToString());
-
-            return currentRegistration;
-        }
-
+        
     }
 }

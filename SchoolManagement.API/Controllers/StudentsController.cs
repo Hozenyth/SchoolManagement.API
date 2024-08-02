@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
+using SchoolManagement.Application.Commands.UpdateStudent;
 using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetAllStudents;
@@ -23,7 +24,7 @@ namespace SchoolManagement.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll(string query)
-        {           
+        {
             var getAllStudentsQuery = new GetAllStudentsQuery(query);
             var students = await _mediator.Send(getAllStudentsQuery);
             return Ok(students);
@@ -51,12 +52,11 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]
-        public IActionResult UpdateStudent([FromBody] UpdateStudentInputModel inputModel, int registration)
+        public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentCommand command)
         {
-            if (string.IsNullOrEmpty(inputModel.Name))
+            if (string.IsNullOrEmpty(command.Name))
                 return BadRequest();
-
-            _studentService.UpdateStudent(inputModel, registration);
+            var studentUpdate = await _mediator.Send(command);
 
             return NoContent();
         }

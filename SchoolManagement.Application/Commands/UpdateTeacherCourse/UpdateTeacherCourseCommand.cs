@@ -6,7 +6,6 @@ namespace SchoolManagement.Application.Comands.UpdateTeacherCourse
     {
         public int Id { get; set; }
         public int? TeacherId { get; set; }
-
-       
+      
     }
 }
