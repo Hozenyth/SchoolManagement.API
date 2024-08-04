@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
+using SchoolManagement.Application.Comands.DeleteCourse;
+using SchoolManagement.Application.Commands.DeleteStudent;
 using SchoolManagement.Application.Commands.UpdateStudent;
 using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Queries.GetAllCourses;
@@ -62,9 +64,10 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpDelete("{registration}")]
-        public IActionResult Delete(int registration)
+        public async Task<IActionResult> Delete(int registration)
         {
-            _studentService.DeleteStudent(registration);
+            var command = new DeleteStudentCommand(registration);
+            await _mediator.Send(command);            
             return NoContent();
         }
     }

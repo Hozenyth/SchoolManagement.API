@@ -3,10 +3,10 @@ using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Comands.DeleteCourse
 {
-    public class DeleteCommandHandler : IRequestHandler<DeleteCourseCommand, Unit>
+    public class DeleteCourseCommandHandler : IRequestHandler<DeleteCourseCommand, Unit>
     {
         private readonly SchoolManagementDbContext _dbContext;
-        public DeleteCommandHandler(SchoolManagementDbContext dbContext)
+        public DeleteCourseCommandHandler(SchoolManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
