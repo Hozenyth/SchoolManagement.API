@@ -1,14 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
-using SchoolManagement.Application.Comands.DeleteCourse;
 using SchoolManagement.Application.Commands.DeleteStudent;
 using SchoolManagement.Application.Commands.UpdateStudent;
-using SchoolManagement.Application.InputModels;
-using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetAllStudents;
 using SchoolManagement.Application.Queries.GetStudentById;
-using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.Controllers
 {
@@ -16,11 +12,10 @@ namespace SchoolManagement.Controllers
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
-        private readonly IStudentService _studentService;
+       
         private readonly IMediator _mediator;
-        public StudentsController(IStudentService studentService, IMediator mediator)
-        {
-            _studentService = studentService;
+        public StudentsController( IMediator mediator)
+        {           
             _mediator = mediator;
         }
 

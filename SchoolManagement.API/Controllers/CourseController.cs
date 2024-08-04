@@ -4,21 +4,18 @@ using SchoolManagement.Application.Comands.CreateCourse;
 using SchoolManagement.Application.Comands.DeleteCourse;
 using SchoolManagement.Application.Comands.UpdateCourse;
 using SchoolManagement.Application.Comands.UpdateTeacherCourse;
-using SchoolManagement.Application.InputModels;
 using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetCourseById;
-using SchoolManagement.Application.Services.Interfaces;
 
 namespace SchoolManagement.API.Controllers
 {
     [Route("api/Course")]
     public class CourseController : ControllerBase
     {
-        private readonly ICourseService _courseService;
+       
         private readonly IMediator _mediator;
-        public CourseController(ICourseService courseService, IMediator mediator)
-        {
-            _courseService = courseService;
+        public CourseController( IMediator mediator)
+        {            
             _mediator = mediator;
         }
 

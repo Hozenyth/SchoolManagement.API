@@ -1,6 +1,9 @@
-﻿namespace SchoolManagement.Core.Repositories
+﻿using SchoolManagement.Core.Entities;
+
+namespace SchoolManagement.Core.Repositories
 {
-    public class ICourseRepository
+    public interface ICourseRepository
     {
+        Task<List<Course>> GetAllAsync();
     }
 }

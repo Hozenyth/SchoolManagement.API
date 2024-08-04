@@ -3,21 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateTeacher;
 using SchoolManagement.Application.Commands.DeleteTeacher;
 using SchoolManagement.Application.Commands.UpdateTeacher;
-using SchoolManagement.Application.InputModels;
-using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetAllTeachers;
-using SchoolManagement.Application.Services.Interfaces;
+using SchoolManagement.Application.Queries.GetTeacherById;
 
 namespace SchoolManagement.API.Controllers
 {
     [Route("api/Teachers")]
     public class TeachersController : ControllerBase
     {
-        private readonly ITeacherService _teacherService;
+        
         private readonly IMediator _mediator;
-        public TeachersController(ITeacherService teacherService, IMediator mediator) 
-        {
-            _teacherService = teacherService;
+        public TeachersController( IMediator mediator) 
+        {            
             _mediator = mediator;
         }
 
@@ -31,18 +28,19 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpGet("{registration}")]
-        public IActionResult GetTeacher(int registration)
+        public async Task<IActionResult> GetTeacher(int registration)
         {
-            var teacher = _teacherService.GetTeacherDetails(registration);
+            var getTeacherById = new GetTeacherByIdQuery(registration);
+            var teacher = await _mediator.Send(getTeacherById);
             
             return Ok(teacher);
         }
       
 
         [HttpPost("CreateTeacher", Name = "CreateTeacher")]
-        public IActionResult Post([FromBody] CreateTeacherCommand command) 
+        public async Task<IActionResult> Post([FromBody] CreateTeacherCommand command) 
         {           
-            var id = _mediator.Send(command);
+            var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetTeacher), new { registration = id }, command);
         }
 

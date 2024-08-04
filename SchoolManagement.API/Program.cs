@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using SchoolManagement.Application.Services.Implementations;
-using SchoolManagement.Application.Services.Interfaces;
 using SchoolManagement.Infrastructure.Persistence.Repositories;
 using SchoolManagement.Application.Comands.CreateCourse;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Comands.CreateTeacher;
 using SchoolManagement.Application.Queries.GetStudentById;
+using SchoolManagement.Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +20,7 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateTea
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStudentByIdQuery).Assembly));
 
 
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddScoped<ICourseService, CourseService>();
-
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("SchoolManagementCs");
 builder.Services.AddDbContext<SchoolManagementDbContext>(x => x.UseSqlServer(connectionString));
