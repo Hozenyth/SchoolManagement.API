@@ -5,7 +5,7 @@ This project is a comprehensive management system designed for educational insti
 - **Teacher Registration:** Create and maintain teacher profiles, including qualifications, contact information, and assigned courses.
 - **Course Management:** Define and organize courses, including course descriptions, schedules, and assigned teachers.
 
-<img>
+
 The system aims to streamline administrative tasks, improve data accuracy, and enhance communication within the institution. Whether you're managing a small training center or a large educational institution, this system provides the tools needed to keep everything running smoothly.
 
 ## Technologies Used
@@ -18,3 +18,5 @@ The system aims to streamline administrative tasks, improve data accuracy, and e
 
 - **Database:**
   - SQL Server
+ 
+ <img src="https://github.com/Hozenyth/SchoolManagement.API/blob/master/SchoolManagement..png?raw=true" alt="Model" height="700px" wight="500px">
