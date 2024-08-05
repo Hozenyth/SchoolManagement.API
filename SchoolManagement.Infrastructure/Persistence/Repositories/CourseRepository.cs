@@ -11,10 +11,16 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
-
+      
         public async Task<List<Course>> GetAllAsync()
         {
             return await _dbContext.Courses.ToListAsync();
+        }
+
+        public async Task AddAsync(Course course)
+        {            
+            await _dbContext.Courses.AddAsync(course);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

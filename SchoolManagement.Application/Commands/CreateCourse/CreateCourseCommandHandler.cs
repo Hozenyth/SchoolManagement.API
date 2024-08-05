@@ -1,22 +1,22 @@
 ﻿using MediatR;
 using SchoolManagement.Core.Entities;
-using SchoolManagement.Infrastructure.Persistence.Repositories;
+using SchoolManagement.Core.Repositories;
 
 namespace SchoolManagement.Application.Comands.CreateCourse
 {
     public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, int>
     {
-        private readonly SchoolManagementDbContext _dbContext;
-        public CreateCourseCommandHandler(SchoolManagementDbContext dbContext)
+
+        private readonly ICourseRepository _courseRepository;
+        public CreateCourseCommandHandler(ICourseRepository courseRepository)
         {
-            _dbContext = dbContext;
+
+            _courseRepository = courseRepository;
         }
         public async Task<int> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
             var createCourse = new Course(request.Title, request.Description);
-
-            await _dbContext.Courses.AddAsync(createCourse);
-            await _dbContext.SaveChangesAsync();
+            await _courseRepository.AddAsync(createCourse);
 
             return createCourse.Id;
         }

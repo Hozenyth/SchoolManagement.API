@@ -21,6 +21,8 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStuden
 
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("SchoolManagementCs");
 builder.Services.AddDbContext<SchoolManagementDbContext>(x => x.UseSqlServer(connectionString));

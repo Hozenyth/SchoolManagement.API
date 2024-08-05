@@ -1,29 +1,22 @@
-﻿using Dapper;
-using MediatR;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using SchoolManagement.Application.ViewModels;
+﻿using MediatR;
+using SchoolManagement.Core.DTOs;
+using SchoolManagement.Core.Repositories;
 
 namespace SchoolManagement.Application.Queries.GetAllTeachers
 {
-    public class GetAllTeachersQueryHandler : IRequestHandler<GetAllTeachersQuery, List<TeacherViewModel>>
+    public class GetAllTeachersQueryHandler : IRequestHandler<GetAllTeachersQuery, List<TeacherDTO>>
     {
-        private readonly string _connectionString;
-        public GetAllTeachersQueryHandler(IConfiguration configuration)
+        private readonly ITeacherRepository _teacherRepository;
+        public GetAllTeachersQueryHandler(ITeacherRepository teacherRepository)
         {
-            _connectionString = configuration.GetConnectionString("SchoolManagementCs");
+           _teacherRepository = teacherRepository;
         }
-        public async Task<List<TeacherViewModel>> Handle(GetAllTeachersQuery request, CancellationToken cancellationToken)
+
+        public async Task<List<TeacherDTO>> Handle(GetAllTeachersQuery request, CancellationToken cancellationToken)
         {
-            using (var sqlConnection = new SqlConnection(_connectionString))
-            {
-                sqlConnection.Open();
-
-                var script = "SELECT Id, Name, Email, PhoneNumber, Registration, CreatedAt FROM Teachers";
-                var teachers = await sqlConnection.QueryAsync<TeacherViewModel>(script);
-
-                return teachers.ToList();
-            }
+            return await _teacherRepository.GetAllAync();
         }
+
+        
     }
 }
