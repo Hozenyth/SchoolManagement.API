@@ -22,5 +22,14 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             await _dbContext.Courses.AddAsync(course);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<Course> GetDetailsByIdAsync(int id)
+        {
+            var course = await _dbContext.Courses
+                .Include(c => c.Teacher)
+                .SingleOrDefaultAsync(c => c.Id == id);
+
+            return course ?? throw new ArgumentException("Não encontrado"); 
+        }
     }
 }

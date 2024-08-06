@@ -1,20 +1,21 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Application.ViewModels;
+using SchoolManagement.Core.Repositories;
 using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Queries.GetTeacherById
 {
     public class GetTeacherbyIdQueryHandler : IRequestHandler<GetTeacherByIdQuery, TeacherDetailsViewModel>
     {
-        private readonly SchoolManagementDbContext _dbContext;
-        public GetTeacherbyIdQueryHandler(SchoolManagementDbContext dbContext)
+        private readonly ITeacherRepository _teacherRepository;
+        public GetTeacherbyIdQueryHandler(ITeacherRepository teacherRepository)
         {
-            _dbContext = dbContext;
+            _teacherRepository = teacherRepository;
         }
         public async Task<TeacherDetailsViewModel> Handle(GetTeacherByIdQuery request, CancellationToken cancellationToken)
         {
-            var teacher = await _dbContext.Teachers.SingleOrDefaultAsync(p => p.Registration == request.Registration);
+            var teacher = await _teacherRepository.GetDetailsByRegistrationAsync(request.Registration);
 
             if (teacher == null) return null;
 

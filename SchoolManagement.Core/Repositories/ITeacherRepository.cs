@@ -6,7 +6,7 @@ namespace SchoolManagement.Core.Repositories
     public interface ITeacherRepository
     {
         Task<List<TeacherDTO>> GetAllAync();
-       
-        
+        Task<Teacher> GetDetailsByRegistrationAsync(int registration);
+
     }
 }

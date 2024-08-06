@@ -15,5 +15,13 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         {
            return await _dbContext.Students.ToListAsync();
         }
+
+        public async Task<Student> GetDetailsByRegistrationAsync(int id)
+        {
+            var student = await _dbContext.Students
+               .SingleOrDefaultAsync(p => p.Registration == id);
+
+            return student ?? throw new ArgumentException("Não encontrado");
+        }
     }
 }
