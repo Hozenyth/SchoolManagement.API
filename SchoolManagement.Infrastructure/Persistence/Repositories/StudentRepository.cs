@@ -11,6 +11,18 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task AddAsync(Student student)
+        {
+            await _dbContext.Students.AddAsync(student);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<Student>> GetAllAsync()
         {
            return await _dbContext.Students.ToListAsync();
@@ -22,6 +34,11 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
                .SingleOrDefaultAsync(p => p.Registration == id);
 
             return student ?? throw new ArgumentException("Não encontrado");
+        }
+
+        public Task UpdateAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

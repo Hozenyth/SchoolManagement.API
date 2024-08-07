@@ -1,23 +1,23 @@
 ﻿using MediatR;
+using SchoolManagement.Core.Repositories;
 using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Comands.DeleteCourse
 {
     public class DeleteCourseCommandHandler : IRequestHandler<DeleteCourseCommand, Unit>
     {
-        private readonly SchoolManagementDbContext _dbContext;
-        public DeleteCourseCommandHandler(SchoolManagementDbContext dbContext)
+        private readonly ICourseRepository _courseRepository;
+        public DeleteCourseCommandHandler(ICourseRepository courseRepository)
         {
-            _dbContext = dbContext;
+            _courseRepository = courseRepository;
         }
         public async Task<Unit> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
         {
-            var course = _dbContext.Courses.SingleOrDefault(c => c.Id == request.Id);
-
+            var course = await _courseRepository.GetDetailsByIdAsync(request.Id);
             if (course != null)
                 course.Cancel();
 
-           await _dbContext.SaveChangesAsync();
+           await _courseRepository.DeleteAsync();
 
             return Unit.Value;
         }

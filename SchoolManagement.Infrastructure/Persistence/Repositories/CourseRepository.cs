@@ -31,5 +31,15 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
 
             return course ?? throw new ArgumentException("Não encontrado"); 
         }
+
+        public async Task UpdateChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
