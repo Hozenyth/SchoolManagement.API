@@ -29,7 +29,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
                 .Include(c => c.Teacher)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
-            return course ?? throw new ArgumentException("Não encontrado"); 
+            return course ?? throw new ArgumentException("Not Found"); 
         }
 
         public async Task UpdateChangesAsync()

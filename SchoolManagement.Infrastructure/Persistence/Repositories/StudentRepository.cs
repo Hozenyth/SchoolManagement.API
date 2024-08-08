@@ -18,7 +18,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync()
         {
             await _dbContext.SaveChangesAsync();
         }
@@ -33,12 +33,12 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             var student = await _dbContext.Students
                .SingleOrDefaultAsync(p => p.Registration == id);
 
-            return student ?? throw new ArgumentException("Não encontrado");
+            return student ?? throw new ArgumentException("Not found");
         }
 
-        public Task UpdateAsync()
+        public async Task UpdateAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();       
         }
     }
 }

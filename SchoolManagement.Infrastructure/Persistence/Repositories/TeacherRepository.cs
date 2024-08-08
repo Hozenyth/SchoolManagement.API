@@ -36,7 +36,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         {
             var teacher = await _dbContext.Teachers.SingleOrDefaultAsync(p => p.Registration == registration);
  
-            return teacher ?? throw new ArgumentException("Não encontrado");
+            return teacher ?? throw new ArgumentException("Not Found");
 
         }
                     

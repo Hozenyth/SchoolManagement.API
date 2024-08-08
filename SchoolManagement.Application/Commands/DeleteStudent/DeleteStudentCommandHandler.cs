@@ -1,24 +1,25 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Core.Repositories;
 using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Commands.DeleteStudent
 {
     public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand, Unit>
     {
-        private readonly SchoolManagementDbContext _dbContext;
+        private readonly IStudentRepository _studentRepository;
 
-        public DeleteStudentCommandHandler(SchoolManagementDbContext dbContext)
+        public DeleteStudentCommandHandler(IStudentRepository studentRepository)
         {
-            _dbContext = dbContext;
+            _studentRepository = studentRepository;
         }
         public async Task<Unit> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
         {
-            var student = await _dbContext.Students.SingleOrDefaultAsync(s => s.Registration == request.Registration);
+            var student = await _studentRepository.GetDetailsByRegistrationAsync(request.Registration);
 
             if (student != null)
                 student.Cancel();
-            await _dbContext.SaveChangesAsync();
+            await _studentRepository.DeleteAsync();
 
             return Unit.Value;
         }
