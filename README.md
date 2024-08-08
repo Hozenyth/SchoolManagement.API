@@ -10,9 +10,10 @@ The system aims to streamline administrative tasks, improve data accuracy, and e
 
 ## Technologies Used
 - **Backend:**
+- -.NET6.0
   - C#
   - ASP.NET CORE
-  - -Dapper
+  - Dapper
   - CQRS (Command Query Responsibility Segregation)
   - Repository pattern
 
