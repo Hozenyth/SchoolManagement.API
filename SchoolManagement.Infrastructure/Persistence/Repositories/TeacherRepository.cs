@@ -18,7 +18,18 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
             _connectionString = configuration.GetConnectionString("SchoolManagementCs");
         }
-      
+
+        public async Task AddAssync(Teacher teacher)
+        {
+           await _dbContext.AddAsync(teacher);
+           await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAssync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<TeacherDTO>> GetAllAync()
         {
             using (var sqlConnection = new SqlConnection(_connectionString))
@@ -39,6 +50,10 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             return teacher ?? throw new ArgumentException("Not Found");
 
         }
-                    
+
+        public async Task UpdateChangesAssync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

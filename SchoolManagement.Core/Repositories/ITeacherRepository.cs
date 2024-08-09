@@ -5,8 +5,11 @@ namespace SchoolManagement.Core.Repositories
 {
     public interface ITeacherRepository
     {
-        Task<List<TeacherDTO>> GetAllAync();
+        Task<List<TeacherDTO>> GetAllAync();      
         Task<Teacher> GetDetailsByRegistrationAsync(int registration);
+        Task AddAssync(Teacher teacher);
+        Task UpdateChangesAssync();
+        Task DeleteAssync();
 
     }
 }
