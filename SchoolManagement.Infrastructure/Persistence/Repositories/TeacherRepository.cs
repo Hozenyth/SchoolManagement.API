@@ -20,9 +20,9 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         }
 
         public async Task AddAssync(Teacher teacher)
-        {
-           await _dbContext.AddAsync(teacher);
-           await _dbContext.SaveChangesAsync();
+        {           
+            await _dbContext.AddAsync(teacher);
+            await _dbContext.SaveChangesAsync();                             
         }
 
         public async Task DeleteAssync()
@@ -51,9 +51,11 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
 
         }
 
+       
         public async Task UpdateChangesAssync()
         {
             await _dbContext.SaveChangesAsync();
         }
+      
     }
 }

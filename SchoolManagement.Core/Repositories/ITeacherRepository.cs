@@ -10,6 +10,6 @@ namespace SchoolManagement.Core.Repositories
         Task AddAssync(Teacher teacher);
         Task UpdateChangesAssync();
         Task DeleteAssync();
-
+      
     }
 }

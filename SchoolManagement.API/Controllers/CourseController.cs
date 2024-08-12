@@ -40,7 +40,7 @@ namespace SchoolManagement.API.Controllers
         [HttpPost("CreateCourse", Name = "CreateCourse")]
         public async Task<IActionResult> Post([FromBody] CreateCourseCommand command)
         {
-
+           
             var id = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { id = id }, command);

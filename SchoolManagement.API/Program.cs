@@ -5,12 +5,17 @@ using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Comands.CreateTeacher;
 using SchoolManagement.Application.Queries.GetStudentById;
 using SchoolManagement.Core.Repositories;
+using FluentValidation.AspNetCore;
+using SchoolManagement.Application.Validators;
+using FluentValidation;
+using SchoolManagement.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(o => o.Filters.Add(typeof(ValidatorFilter)))
+    .AddFluentValidation( fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCourseCommandValidator>()); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +23,8 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateCou
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateStudentCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateTeacherCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStudentByIdQuery).Assembly));
+
+//builder.Services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
 
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
