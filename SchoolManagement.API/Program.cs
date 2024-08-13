@@ -24,8 +24,6 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateStu
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateTeacherCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStudentByIdQuery).Assembly));
 
-//builder.Services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
-
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
