@@ -33,7 +33,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             var student = await _dbContext.Students
                .SingleOrDefaultAsync(p => p.Registration == id);
 
-            return student ?? throw new ArgumentException("Not found");
+            return student ?? throw new ArgumentException("Student Not found");
         }
 
         public async Task UpdateAsync()
