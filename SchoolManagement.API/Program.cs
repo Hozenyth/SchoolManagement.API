@@ -7,7 +7,6 @@ using SchoolManagement.Application.Queries.GetStudentById;
 using SchoolManagement.Core.Repositories;
 using FluentValidation.AspNetCore;
 using SchoolManagement.Application.Validators;
-using FluentValidation;
 using SchoolManagement.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers(o => o.Filters.Add(typeof(ValidatorFilter)))
-    .AddFluentValidation( fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCourseCommandValidator>()); 
+    .AddFluentValidation(fv =>
+    {
+
+        fv.RegisterValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<GetCourseByIDQueryValidator>();
+
+    }); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

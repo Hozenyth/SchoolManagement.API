@@ -6,6 +6,8 @@ using SchoolManagement.Application.Comands.UpdateCourse;
 using SchoolManagement.Application.Comands.UpdateTeacherCourse;
 using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetCourseById;
+using SchoolManagement.Application.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagement.API.Controllers
 {
@@ -29,12 +31,18 @@ namespace SchoolManagement.API.Controllers
 
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, [FromServices] GetCourseByIDQueryValidator validator)
         {
             var getCourseQuery = new GetCourseByIdQuery(id);
-            var course = await _mediator.Send(getCourseQuery);
-
-            return course == null ? NotFound() : Ok(course);
+            var validationResult = await validator.ValidateAsync(getCourseQuery);
+                      
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select( e => e.ErrorMessage));
+            }
+            var course = await _mediator.Send(getCourseQuery);          
+            return Ok(course);
+           
         }
 
         [HttpPost("CreateCourse", Name = "CreateCourse")]
@@ -60,8 +68,15 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpDelete("DeleteCourse", Name = "DeleteCourse")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, [FromServices] GetCourseByIDQueryValidator validator)
         {
+            var getCourseQuery = new GetCourseByIdQuery(id);
+            var validationResult = await validator.ValidateAsync(getCourseQuery);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
             var command = new DeleteCourseCommand(id);
             await _mediator.Send(command);
             return NoContent();

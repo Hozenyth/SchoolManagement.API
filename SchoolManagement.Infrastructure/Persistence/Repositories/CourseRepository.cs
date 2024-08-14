@@ -27,8 +27,7 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
         {
             var course = await _dbContext.Courses
                 .Include(c => c.Teacher)
-                .SingleOrDefaultAsync(c => c.Id == id);
-
+                .SingleOrDefaultAsync(c => c.Id == id);           
             return course ?? throw new ArgumentException("Id Not found"); 
         }
 

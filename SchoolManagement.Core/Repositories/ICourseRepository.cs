@@ -8,6 +8,6 @@ namespace SchoolManagement.Core.Repositories
         Task AddAsync(Course course);
         Task<Course> GetDetailsByIdAsync(int registration);
         Task UpdateChangesAsync();
-        Task DeleteAsync();
+        Task DeleteAsync();      
     }
 }
