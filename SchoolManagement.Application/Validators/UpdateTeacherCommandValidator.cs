@@ -20,17 +20,17 @@ namespace SchoolManagement.Application.Validators
                 .NotEmpty()
                 .WithMessage("Email is required");
 
-            //RuleFor(s => s.Email)
-            //    .EmailAddress()
-            //    .WithMessage(" Email is not valid");
+            RuleFor(s => s.Email)
+                .EmailAddress()
+                .WithMessage(" Email is not valid");
 
-            //RuleFor(s => s.PhoneNumber)
-            //    .NotEmpty()
-            //    .WithMessage("Phone Number is required");
+            RuleFor(s => s.PhoneNumber)
+                .NotEmpty()
+                .WithMessage("Phone Number is required");
 
-            //RuleFor(e => e.Registration)
-            //    .NotEmpty()
-            //    .WithMessage("Registration is required");
+            RuleFor(e => e.Registration)
+                .NotEmpty()
+                .WithMessage("Registration is required");
 
             RuleFor(e => e.Registration).Must(IsRegistrationExist).WithMessage("Registration not found");
         }
