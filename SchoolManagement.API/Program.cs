@@ -8,6 +8,8 @@ using SchoolManagement.Core.Repositories;
 using FluentValidation.AspNetCore;
 using SchoolManagement.Application.Validators;
 using SchoolManagement.API.Filters;
+using SchoolManagement.Core.Services;
+using SchoolManagement.Infrastructure.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,7 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStuden
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var connectionString = builder.Configuration.GetConnectionString("SchoolManagementCs");
 builder.Services.AddDbContext<SchoolManagementDbContext>(x => x.UseSqlServer(connectionString));

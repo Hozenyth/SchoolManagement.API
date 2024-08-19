@@ -15,7 +15,7 @@ namespace SchoolManagement.Application.Comands.CreateStudent
         {            
             var currentRegistration = GenerateRegistration(request.Registration);
             request.Registration = currentRegistration;
-            var student = new Student(request.Name, request.PhoneNumber, request.Registration, request.Email);
+            var student = new Student(request.Name, request.PhoneNumber, request.Registration, request.Email, request.Role, request.Password);
             await _studentRepository.AddAsync(student);
             
             return student.Registration;

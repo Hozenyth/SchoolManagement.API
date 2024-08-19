@@ -9,20 +9,23 @@ namespace SchoolManagement.Core.Entities
         public int Registration { get; private set; }       
         public string Email { get; private set; }
         public bool IsActive { get; private set; }
+        public string Password { get; private set; }
+        public string Role { get; private set; }
         public DateTime CreatedAt { get; private set; }              
         public StudentStatusEnum StudentStatus { get; private set; }
         public List<Course_Student> Course_Students { get; private set; }
 
-        public Student( string name, string phoneNumber, int registration, string email) 
+        public Student( string name, string phoneNumber, int registration, string email, string role, string password) 
         {
             Name = name;
             PhoneNumber = phoneNumber;            
             Registration = registration;
-            Email = email;
+            Email = email;           
             CreatedAt = DateTime.Now;
             IsActive = true;
             StudentStatus = StudentStatusEnum.Created;
-                             
+            Role = role;
+            Password = password;
         }
 
         public void Cancel()
