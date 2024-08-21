@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Commands.DeleteStudent;
+using SchoolManagement.Application.Commands.LoginUser;
 using SchoolManagement.Application.Commands.UpdateStudent;
 using SchoolManagement.Application.Queries.GetAllStudents;
 using SchoolManagement.Application.Queries.GetStudentById;
@@ -42,10 +43,8 @@ namespace SchoolManagement.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateStudentCommand command)
         {
-
             var id = _mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { registration = id }, command);
-
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]
@@ -65,5 +64,16 @@ namespace SchoolManagement.Controllers
             await _mediator.Send(command);            
             return NoContent();
         }
+
+        [HttpPut("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        {
+            var loginUserViewModel = await _mediator.Send(command);
+            if(loginUserViewModel == null)  
+                return BadRequest();
+
+            return Ok(loginUserViewModel);
+        }
+
     }
 }

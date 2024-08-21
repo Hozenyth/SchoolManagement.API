@@ -28,12 +28,24 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
            return await _dbContext.Students.ToListAsync();
         }
 
+        public async Task<Student> GetByIdAsync(int id)
+        {
+            return await _dbContext.Students.SingleOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<Student> GetDetailsByRegistrationAsync(int id)
         {
             var student = await _dbContext.Students
                .SingleOrDefaultAsync(p => p.Registration == id);
 
             return student ?? throw new ArgumentException("Student Not found");
+        }
+
+        public async Task<Student> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+        {
+            return await _dbContext
+                .Students
+                .SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
         }
 
         public async Task UpdateAsync()

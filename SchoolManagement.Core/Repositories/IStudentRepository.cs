@@ -9,5 +9,7 @@ namespace SchoolManagement.Core.Repositories
         Task AddAsync(Student student);
         Task UpdateAsync();
         Task DeleteAsync();
+        Task<Student> GetByIdAsync(int id);
+        Task<Student> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
     }
 }
