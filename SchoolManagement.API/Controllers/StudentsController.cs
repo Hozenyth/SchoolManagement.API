@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Commands.DeleteStudent;
@@ -11,6 +12,7 @@ namespace SchoolManagement.Controllers
 {
 
     [Route("api/students")]
+    [Authorize]
     public class StudentsController : ControllerBase
     {
        
@@ -19,8 +21,9 @@ namespace SchoolManagement.Controllers
         {           
             _mediator = mediator;
         }
-
+        
         [HttpGet]
+        [Authorize(Roles = "student")]
         public async Task<IActionResult> GetAll(string query)
         {
             var getAllStudentsQuery = new GetAllStudentsQuery(query);
@@ -29,6 +32,7 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpGet("{registration}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int registration)
         {
             var getStudentById = new GetStudentByIdQuery(registration);
@@ -41,6 +45,7 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Post([FromBody] CreateStudentCommand command)
         {
             var id = _mediator.Send(command);
@@ -48,6 +53,7 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpPut("UpdateStudent", Name = "UpdateStudent")]
+        [AllowAnonymous]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentCommand command)
         {
             if (string.IsNullOrEmpty(command.Name))
@@ -58,6 +64,7 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpDelete("{registration}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Delete(int registration)
         {
             var command = new DeleteStudentCommand(registration);
@@ -66,6 +73,7 @@ namespace SchoolManagement.Controllers
         }
 
         [HttpPut("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var loginUserViewModel = await _mediator.Send(command);

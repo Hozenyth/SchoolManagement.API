@@ -20,8 +20,8 @@ namespace SchoolManagement.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var loginUserViewModel = await _mediator.Send(command);
-            if(loginUserViewModel == null)  
-                return BadRequest();
+            if(loginUserViewModel == null)
+                return BadRequest(new { message = "Invalid Email or Password" });
 
             return Ok(loginUserViewModel);
         }
