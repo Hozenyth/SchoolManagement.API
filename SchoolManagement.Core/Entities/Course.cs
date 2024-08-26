@@ -31,8 +31,11 @@ namespace SchoolManagement.Core.Entities
 
         public void Start()
         {
-            if(Status == CourseStatusEnum.Created)
+            if (Status == CourseStatusEnum.Created)
+            {
                 StartedAt = DateTime.Now;
+                Status = CourseStatusEnum.InProgress;
+            }
         }
 
         public void Finish()
