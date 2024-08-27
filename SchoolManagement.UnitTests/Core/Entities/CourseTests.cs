@@ -24,5 +24,11 @@ namespace SchoolManagement.UnitTests.Core.Entities
             Assert.NotNull(course.StartedAt);
             
         }
+
+        [Fact]
+        public void TestCourseCancelWorks()
+        {
+
+        }
     }
 }

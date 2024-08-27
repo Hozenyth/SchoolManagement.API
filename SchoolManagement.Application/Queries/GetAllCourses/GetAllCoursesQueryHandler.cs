@@ -16,11 +16,12 @@ namespace SchoolManagement.Application.Queries.GetAllCourses
         public async Task<List<CourseViewModel>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
         {
             var course = await _courseRepository.GetAllAsync();
-            
+
             var couserViewModel = course
                 .Select(c => new CourseViewModel(c.Id, c.Title, c.Description, c.CreatedAt, c.StartedAt, c.FinishedAt)).ToList();
 
             return couserViewModel;
+            
         }
     }
 }
