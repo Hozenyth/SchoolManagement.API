@@ -2,7 +2,6 @@
 using SchoolManagement.Application.Comands.CreateCourse;
 using SchoolManagement.Core.Entities;
 using SchoolManagement.Core.Repositories;
-using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.UnitTests.Application.Commands
 {

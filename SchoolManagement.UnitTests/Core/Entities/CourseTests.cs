@@ -28,6 +28,13 @@ namespace SchoolManagement.UnitTests.Core.Entities
         [Fact]
         public void TestCourseCancelWorks()
         {
+            var course = new Course("Test Course", "Description");
+
+            Assert.Equal(CourseStatusEnum.Created, course.Status);
+
+            course.Cancel();
+
+            Assert.Equal(CourseStatusEnum.Cancelled, course.Status);
 
         }
     }
