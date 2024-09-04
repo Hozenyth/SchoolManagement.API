@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Application.ViewModels;
 using SchoolManagement.Core.Repositories;
-using SchoolManagement.Infrastructure.Persistence.Repositories;
 
 namespace SchoolManagement.Application.Queries.GetStudentById
 {
@@ -15,7 +13,7 @@ namespace SchoolManagement.Application.Queries.GetStudentById
         }
         public async Task<StudentDetailsViewModel> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
-            var student = await _studentRepository.GetDetailsByRegistrationAsync(request.Registration);
+            var student = await _studentRepository.GetByIdAsync(request.Id);
                 
             if (student == null) return null;
 

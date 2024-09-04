@@ -5,11 +5,11 @@ namespace SchoolManagement.Application.Queries.GetStudentById
 {
     public class GetStudentByIdQuery : IRequest<StudentDetailsViewModel>
     {
-        public int Registration { get; set; }
+        public int Id { get; set; }
 
-        public GetStudentByIdQuery(int registration)
+        public GetStudentByIdQuery(int id)
         {
-            Registration = registration;
+            Id = id;
         }
     }
 }

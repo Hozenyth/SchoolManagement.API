@@ -7,7 +7,6 @@ using SchoolManagement.Application.Comands.UpdateTeacherCourse;
 using SchoolManagement.Application.Queries.GetAllCourses;
 using SchoolManagement.Application.Queries.GetCourseById;
 using SchoolManagement.Application.Validators;
-using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagement.API.Controllers
 {

@@ -1,30 +1,34 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Core.DTOs;
 using SchoolManagement.Core.Repositories;
-using SchoolManagement.Infrastructure.Persistence.Repositories;
+using SchoolManagement.Core.Services;
 
 namespace SchoolManagement.Application.Commands.StartCourse
 {
-    public class StartStudentCommandHandler : IRequestHandler<StartStudentCommand, Unit>
+    public class StartStudentCommandHandler : IRequestHandler<StartStudentCommand, bool>
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IPaymentService _paymentService;
 
         public StartStudentCommandHandler(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;           
         }
-        public async Task<Unit> Handle(StartStudentCommand request, CancellationToken cancellationToken)
+      
+       async Task<bool> IRequestHandler<StartStudentCommand, bool>.Handle(StartStudentCommand request, CancellationToken cancellationToken)
         {
-            var student = await _studentRepository.GetByIdAsync(request.Id);
-            if (student == null)
-            {
-                BadRequestResult result = new BadRequestResult();
-            }
+            var student = await _studentRepository.GetByIdAsync(request.Id);           
 
+            var paymentInfoDto = new PaymentInfoDTO(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, student.Payment);
+
+            _paymentService.ProcessPayment(paymentInfoDto);
+          
             student.StartCourse();
 
             await _studentRepository.StartAsync(student);
-            return Unit.Value;
+            //await _projectRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

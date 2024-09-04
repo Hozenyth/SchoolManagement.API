@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Core.Repositories;
 
 namespace SchoolManagement.Application.Commands.FinishStudent
@@ -14,14 +13,13 @@ namespace SchoolManagement.Application.Commands.FinishStudent
         public async Task<Unit> Handle(FinishStudentCommand request, CancellationToken cancellationToken)
         {
             var student = await _studentRepository.GetByIdAsync(request.Id);
-            if (student == null)
+
+            if (student != null)
             {
-                throw new Exception("Student not found");
+                student.FinishCourse();
+                await _studentRepository.FinishAsync(student);
             }
-
-            student.FinishCourse();
-
-            await _studentRepository.FinishAsync(student);
+           
             return Unit.Value;
         }
     }

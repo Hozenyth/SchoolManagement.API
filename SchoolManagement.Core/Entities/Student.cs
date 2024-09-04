@@ -11,6 +11,7 @@ namespace SchoolManagement.Core.Entities
         public bool IsActive { get; private set; }
         public string Password { get; private set; }
         public string Role { get; private set; }
+        public decimal Payment { get; private set; }
         public DateTime CreatedAt { get; private set; }              
         public StudentStatusEnum StudentStatus { get; private set; }
         public List<Course_Student> Course_Students { get; private set; }
