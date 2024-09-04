@@ -23,6 +23,11 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task FinishAsync(Student student)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<Student>> GetAllAsync()
         {
            return await _dbContext.Students.ToListAsync();
@@ -46,6 +51,11 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
             return await _dbContext
                 .Students
                 .SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
+        }
+
+        public async Task StartAsync(Student student)
+        {
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync()

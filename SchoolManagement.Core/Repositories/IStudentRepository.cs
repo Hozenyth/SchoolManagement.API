@@ -11,5 +11,7 @@ namespace SchoolManagement.Core.Repositories
         Task DeleteAsync();
         Task<Student> GetByIdAsync(int id);
         Task<Student> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
+        Task StartAsync(Student student);
+        Task FinishAsync(Student student);
     }
 }

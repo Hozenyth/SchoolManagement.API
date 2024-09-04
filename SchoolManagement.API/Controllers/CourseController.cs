@@ -88,5 +88,6 @@ namespace SchoolManagement.API.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+      
     }
 }

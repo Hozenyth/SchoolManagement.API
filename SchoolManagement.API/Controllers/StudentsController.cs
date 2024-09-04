@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Application.Comands.CreateStudent;
 using SchoolManagement.Application.Commands.DeleteStudent;
-using SchoolManagement.Application.Commands.LoginUser;
+using SchoolManagement.Application.Commands.FinishStudent;
+using SchoolManagement.Application.Commands.StartCourse;
 using SchoolManagement.Application.Commands.UpdateStudent;
 using SchoolManagement.Application.Queries.GetAllStudents;
 using SchoolManagement.Application.Queries.GetStudentById;
@@ -12,7 +13,7 @@ namespace SchoolManagement.Controllers
 {
 
     [Route("api/students")]
-    [Authorize]
+   
     public class StudentsController : ControllerBase
     {
        
@@ -72,16 +73,28 @@ namespace SchoolManagement.Controllers
             return NoContent();
         }
 
-        [HttpPut("Login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        // api/student/1/start
+        [HttpPut("{id}/start")]
+        public async Task<IActionResult> Start(int id)
         {
-            var loginUserViewModel = await _mediator.Send(command);
-            if(loginUserViewModel == null)  
-                return BadRequest();
+            var command = new StartStudentCommand(id);
 
-            return Ok(loginUserViewModel);
+            await _mediator.Send(command);
+
+            return NoContent();
         }
+
+        // api/student/1/finish
+        [HttpPut("{id}/finish")]
+        public async Task<IActionResult> Finish(int id)
+        {
+            var command = new FinishStudentCommand(id);
+
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
 
     }
 }

@@ -36,6 +36,20 @@ namespace SchoolManagement.Core.Entities
                 StudentStatus = StudentStatusEnum.Cancelled;
             }
         }
+        public void StartCourse()
+        {
+            if (IsActive && StudentStatus == StudentStatusEnum.Created)
+            {               
+                StudentStatus = StudentStatusEnum.InProgress;
+            }
+        }
+        public void FinishCourse()
+        {
+            if (IsActive && StudentStatus == StudentStatusEnum.InProgress)
+            {             
+                StudentStatus = StudentStatusEnum.Finished;
+            }
+        }
 
         public void Update(string name, string email, string phoneNumber)
         {
