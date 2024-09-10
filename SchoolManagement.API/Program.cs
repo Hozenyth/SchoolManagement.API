@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SchoolManagement.Infrastructure.Payments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +91,8 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddHttpClient<IPaymentService, PaymentService>();
 
 var connectionString = builder.Configuration.GetConnectionString("SchoolManagementCs");
 builder.Services.AddDbContext<SchoolManagementDbContext>(x => x.UseSqlServer(connectionString));
