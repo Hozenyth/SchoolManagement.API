@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SchoolManagement.Infrastructure.Payments;
+using SchoolManagement.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,24 +63,7 @@ builder.Services.AddSwaggerGen(c =>
    
 });
 
-builder.Services
-              .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-              .AddJwtBearer(options =>
-              {
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuer = true,
-                      ValidateAudience = true,
-                      ValidateLifetime = true,
-                      ValidateIssuerSigningKey = true,
-
-                      ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                      ValidAudience = builder.Configuration["Jwt:Audience"],
-                      IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                  };
-              });
-
+builder.Services.AddInfrastructure();
 
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateCourseCommand).Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateStudentCommand).Assembly));
@@ -87,10 +71,6 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(CreateTea
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssembly(typeof(GetStudentByIdQuery).Assembly));
 
 
-builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddHttpClient<IPaymentService, PaymentService>();
 
