@@ -53,6 +53,11 @@ namespace SchoolManagement.Infrastructure.Persistence.Repositories
                 .SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task StartAsync(Student student)
         {
             await _dbContext.SaveChangesAsync();

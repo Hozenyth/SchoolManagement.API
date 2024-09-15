@@ -4,6 +4,6 @@ namespace SchoolManagement.Core.Services
 {
     public interface IPaymentService
     {
-       Task<bool> ProcessPayment(PaymentInfoDTO paymentInfoDTO);
+       void ProcessPayment(PaymentInfoDTO paymentInfoDTO);
     }
 }

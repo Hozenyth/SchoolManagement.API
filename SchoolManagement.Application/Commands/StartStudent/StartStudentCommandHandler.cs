@@ -2,7 +2,6 @@
 using SchoolManagement.Core.DTOs;
 using SchoolManagement.Core.Repositories;
 using SchoolManagement.Core.Services;
-using SchoolManagement.Infrastructure.Payments;
 
 namespace SchoolManagement.Application.Commands.StartCourse
 {
@@ -27,7 +26,7 @@ namespace SchoolManagement.Application.Commands.StartCourse
 
             student.StartCourse();
 
-            await _studentRepository.StartAsync(student);
+            await _studentRepository.SaveChangesAsync();
           
             return true;
         }

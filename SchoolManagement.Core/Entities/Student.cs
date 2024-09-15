@@ -44,6 +44,11 @@ namespace SchoolManagement.Core.Entities
                 StudentStatus = StudentStatusEnum.InProgress;
             }
         }
+
+        public void SetPaymentPending()
+        {
+            StudentStatus = StudentStatusEnum.PaymentPending;
+        }
         public void FinishCourse()
         {
             if (IsActive && StudentStatus == StudentStatusEnum.InProgress)
